@@ -29,7 +29,6 @@ const addUser = async (req, res) => {
 
     res.send({
       error: false,
-      data,
       message: "User created successfully",
     });
   } catch (error) {
@@ -46,6 +45,7 @@ const getAllUser = async (req, res) => {
     res.send({
       error: false,
       data,
+      message: "User retrieved successfully",
     });
   } catch (error) {
     res.status(400).send(error.message);
@@ -115,11 +115,13 @@ const updateUser = async (req, res) => {
 
     res.send({
       error: false,
-      data,
       message: "User updated successfully",
     });
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send({
+      error: true,
+      message: error.message,
+    });
   }
 };
 
@@ -134,11 +136,13 @@ const deleteUser = async (req, res) => {
 
     res.send({
       error: false,
-      data,
       message: "User deleted successfully",
     });
   } catch (error) {
-    res.status(404).send(error.message);
+    res.status(404).send({
+      error: true,
+      message: error.message,
+    });
   }
 };
 
