@@ -1,46 +1,22 @@
-"use strict";
-import supabase from "../config/supabaseClient.js";
+// src/controllers/userController.js
+import * as userService from "../services/userServices.js";
 
-const addUser = async (req, res) => {
+export const addUser = async (req, res, next) => {
   try {
-    const {
-      full_name,
-      email,
-      password,
-      account_type,
-      weight,
-      gender,
-      location,
-    } = req.body;
-
-    const { data, error } = await supabase.from("users").insert([
-      {
-        full_name,
-        email,
-        password,
-        account_type,
-        weight,
-        gender,
-        location,
-      },
-    ]);
-
-    if (error) throw new Error(error.message);
+    const data = await userService.addUser(req.body);
 
     res.send({
       error: false,
       message: "User created successfully",
     });
   } catch (error) {
-    res.status(400).send(error.message);
+    next(error);
   }
 };
 
-const getAllUser = async (req, res) => {
+export const getAllUsers = async (req, res, next) => {
   try {
-    const { data, error } = await supabase.from("users").select("*");
-
-    if (error) throw new Error(error.message);
+    const data = await userService.getAllUsers();
 
     res.send({
       error: false,
@@ -48,19 +24,13 @@ const getAllUser = async (req, res) => {
       message: "User retrieved successfully",
     });
   } catch (error) {
-    res.status(400).send(error.message);
+    next(error);
   }
 };
 
-const getUserById = async (req, res) => {
+export const getUserById = async (req, res, next) => {
   try {
-    const { data, error } = await supabase
-      .from("users")
-      .select("*")
-      .eq("id", req.params.id)
-      .single();
-
-    if (error) throw new Error("User not found");
+    const data = await userService.getUserById(req.params.id);
 
     res.send({
       error: false,
@@ -68,82 +38,53 @@ const getUserById = async (req, res) => {
       message: "User retrieved successfully",
     });
   } catch (error) {
-    res.status(404).send(error.message);
+    next(error);
   }
 };
 
-const updateUser = async (req, res) => {
+export const updateUser = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const {
-      full_name,
-      email,
-      password,
-      account_type,
-      weight,
-      gender,
-      location,
-    } = req.body;
+    const userData = req.body;
 
-    const { data: dataUser, error: userError } = await supabase
-      .from("users")
-      .select("*")
-      .eq("id", id)
-      .single();
+    const data = await userService.getUserById(id);
 
-    if (userError || !dataUser) {
-      return res.status(404).send({
-        error: true,
-        message: "User not found",
-      });
-    }
-
-    const { data, error } = await supabase
-      .from("users")
-      .update({
-        full_name,
-        email,
-        password,
-        account_type,
-        weight,
-        gender,
-        location,
-      })
-      .eq("id", id);
-
-    if (error) throw new Error(error.message);
+    const dataUser = await userService.updateUser(id, userData);
 
     res.send({
       error: false,
+      data: null,
       message: "User updated successfully",
     });
   } catch (error) {
-    res.status(400).send({
-      error: true,
-      message: error.message,
-    });
+    next(error);
   }
 };
 
-const deleteUser = async (req, res) => {
+export const deleteUser = async (req, res, next) => {
   try {
-    const { error } = await supabase
-      .from("users")
-      .delete()
-      .eq("id", req.params.id);
-
-    if (error) throw new Error("User not found or delete failed");
+    const data = await userService.deleteUser(req.params.id);
 
     res.send({
       error: false,
+      data: null,
       message: "User deleted successfully",
     });
   } catch (error) {
-    res.status(404).send({
-      error: true,
-      message: error.message,
-    });
+    next(error);
   }
 };
 
-export { addUser, getAllUser, getUserById, updateUser, deleteUser };
+export const getCurrentUser = (req, res) => {
+  try {
+    const data = userService.getCurrentUser(req);
+    res.send({
+      error: false,
+      data,
+      message: "User retrieved successfully",
+    });
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};

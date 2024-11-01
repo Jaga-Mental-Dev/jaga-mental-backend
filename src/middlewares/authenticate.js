@@ -1,4 +1,4 @@
-import { verifyGoogleToken } from "../lib/verifyGoogleToken.js";
+import { verifyGoogleToken } from "../utils/verifyGoogleToken.js";
 
 const authenticate = async (req, res, next) => {
   const idToken = req.headers.authorization?.split("Bearer ")[1];

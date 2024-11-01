@@ -4,6 +4,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import router from "./routes/index.js";
+import { errorHandler } from "./middlewares/errHandler.js";
 
 const app = express();
 dotenv.config();
@@ -13,6 +14,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use("/api", router);
+
+app.use(errorHandler);
 
 const port = process.env.PORT || 8080;
 
