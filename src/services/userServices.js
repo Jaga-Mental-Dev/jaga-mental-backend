@@ -71,3 +71,13 @@ export const getCurrentUser = (req) => {
 
   return user;
 };
+
+export const getUserByEmail = async (email) => {
+  const { data, error } = await supabase
+    .from("users")
+    .select("*")
+    .eq("email", email)
+    .single();
+
+  return data;
+};
