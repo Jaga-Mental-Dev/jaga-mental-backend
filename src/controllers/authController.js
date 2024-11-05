@@ -1,5 +1,6 @@
 import CustomError from "../utils/CustomError.js";
 import * as userService from "../services/userServices.js";
+import * as authService from "../services/authService.js";
 import { loginSchema, registerSchema } from "../validations/authValidation.js";
 import bcrypt from "bcrypt";
 import { auth } from "../auth.js";
@@ -14,26 +15,9 @@ export const registration = async (req, res, next) => {
 
     const { full_name, email, password } = req.body;
 
-    // validate if user found
-    const foundUser = await userService.getUserByEmail(email);
+    await authService.registerUser(full_name, email, password);
 
-    if (foundUser) {
-      throw new CustomError("User already registered", 409);
-    }
-
-    // hash password
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-    const newUser = {
-      full_name,
-      email,
-      password: hashedPassword,
-    };
-
-    await userService.addUser(newUser);
-
-    res.status(201).json({
+    await res.status(201).json({
       error: false,
       message: "user registered successfully",
       data: {
@@ -56,19 +40,7 @@ export const login = async (req, res, next) => {
 
     const { email, password } = req.body;
 
-    // Validate if user found
-    const user = await userService.getUserByEmail(email);
-    if (!user) {
-      throw new CustomError("Invalid email or password", 401);
-    }
-
-    // Validate password
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      throw new CustomError("Invalid email or password", 401);
-    }
-
-    const idToken = await auth.createCustomToken(user.id);
+    const idToken = await authService.loginUser(email, password);
 
     res.status(200).json({
       error: false,

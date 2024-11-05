@@ -10,7 +10,6 @@ import {
 
 const userRoute = express.Router();
 
-userRoute.post("/", addUser);
 userRoute.get("/me", getCurrentUser);
 userRoute.put("/:id", updateUser);
 userRoute.get("/", getAllUsers);
