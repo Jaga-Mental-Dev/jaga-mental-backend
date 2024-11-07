@@ -1,5 +1,4 @@
 import admin from "firebase-admin";
-import "firebase/auth";
 import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 
