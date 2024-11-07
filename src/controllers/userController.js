@@ -1,5 +1,6 @@
 // src/controllers/userController.js
 import * as userService from "../services/userServices.js";
+import CustomError from "../utils/CustomError.js";
 
 export const addUser = async (req, res, next) => {
   try {
@@ -75,9 +76,15 @@ export const deleteUser = async (req, res, next) => {
   }
 };
 
-export const getCurrentUser = (req, res) => {
+export const getCurrentUser = async (req, res) => {
   try {
-    const data = userService.getCurrentUser(req);
+    const { email } = req.user;
+    const data = await userService.getUserByEmail(email);
+
+    if (!data) {
+      throw new CustomError("User not found", 404);
+    }
+
     res.send({
       error: false,
       data,

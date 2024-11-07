@@ -62,16 +62,6 @@ export const deleteUser = async (id) => {
   return data;
 };
 
-export const getCurrentUser = (req) => {
-  const user = req.user;
-
-  if (!user) {
-    throw new CustomError("Unauthorized", 401);
-  }
-
-  return user;
-};
-
 export const getUserByEmail = async (email) => {
   const { data, error } = await supabase
     .from("users")
