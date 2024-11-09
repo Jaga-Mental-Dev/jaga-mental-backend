@@ -16,8 +16,13 @@ const createJournal = async (req, res, next) => {
 
 const getAllJournalByUserId = async (req, res, next) => {
   try {
-    const id = "asdadassdasdasd";
-    const data = await journalService.getAllJournalByUserId(id);
+    const id = req.user.id;
+    const { emotion, title, content } = req.query;
+    const data = await journalService.getAllJournalByUserId(id, {
+      emotion,
+      title,
+      content,
+    });
 
     res.send({
       error: false,

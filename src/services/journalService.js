@@ -13,11 +13,20 @@ const createJournal = async (firebase_id, data) => {
   return data;
 };
 
-const getAllJournalByUserId = async (firebase_id) => {
-  const { data, error } = await supabase
-    .from("journals")
-    .select("*")
-    .eq("user_id", firebase_id);
+const getAllJournalByUserId = async (firebase_id, filters = {}) => {
+  let query = supabase.from("journals").select("*").eq("user_id", firebase_id);
+
+  if (filters.emotion) {
+    query = query.eq("emotion", filters.emotion);
+  }
+  if (filters.title) {
+    query = query.ilike("title", `%${filters.title}%`);
+  }
+  if (filters.content) {
+    query = query.ilike("content", `%${filters.content}%`);
+  }
+
+  const { data, error } = await query;
 
   if (error || !data) {
     throw new CustomError("Journal not found", 404);
