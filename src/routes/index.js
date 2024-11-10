@@ -16,6 +16,6 @@ router.use("/user", authenticate, userRoute);
 router.use("/auth", authRoute);
 router.use("/oauth", authenticate, oauthRoute);
 router.use("/journal", authenticate, journalRoute);
-router.use("/analytic", analyticRoute);
+router.use("/analytic", authenticate, analyticRoute);
 
 export default router;
