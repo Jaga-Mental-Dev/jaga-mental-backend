@@ -1,10 +1,22 @@
 import supabase from "../config/supabaseClient.js";
 import CustomError from "../utils/CustomError.js";
+import uploadImageToGCS from "./storeImage.js";
 
 const createJournal = async (firebase_id, data) => {
+  const { image, ...journalData } = data;
+
+  if (image) {
+    try {
+      const imageUrl = await uploadImageToGCS(image, firebase_id);
+      journalData.imageUrl = imageUrl;
+    } catch (uploadError) {
+      throw new CustomError(uploadError.message, 500);
+    }
+  }
+
   const { data: insertedData, error } = await supabase
     .from("journals")
-    .insert({ user_id: firebase_id, ...data });
+    .insert({ user_id: firebase_id, ...journalData });
 
   if (error) {
     throw new CustomError(error.message, 500);

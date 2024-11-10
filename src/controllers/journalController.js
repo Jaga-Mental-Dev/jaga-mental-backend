@@ -3,7 +3,11 @@ import * as journalService from "../services/journalService.js";
 const createJournal = async (req, res, next) => {
   try {
     const id = req.user.id;
-    await journalService.createJournal(id, req.body);
+    const data = {
+      image: req.file,
+      ...req.body,
+    };
+    await journalService.createJournal(id, data);
 
     res.send({
       error: false,
