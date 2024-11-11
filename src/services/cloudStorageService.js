@@ -19,8 +19,6 @@ async function uploadImageToGCS(imageFile, firebaseId) {
   };
 
   try {
-    console.log(image);
-
     const file = bucket.file(destination);
 
     await file.save(imageFile.buffer, options);
@@ -31,4 +29,20 @@ async function uploadImageToGCS(imageFile, firebaseId) {
   }
 }
 
-export default uploadImageToGCS;
+async function deleteImageFromGCS(publicUrl) {
+  try {
+    const baseUrl = `https://storage.googleapis.com/${bucketName}/`;
+    const filePath = publicUrl.replace(baseUrl, "");
+
+    const file = storage.bucket(bucketName).file(filePath);
+
+    await file.delete();
+
+    console.log(`File ${filePath} deleted from bucket ${bucketName}`);
+    return { success: true, message: "File deleted successfully" };
+  } catch (error) {
+    throw new CustomError(`Failed to delete image: ${error.message}`, 500);
+  }
+}
+
+export { uploadImageToGCS, deleteImageFromGCS };

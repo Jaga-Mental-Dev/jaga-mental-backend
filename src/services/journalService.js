@@ -1,6 +1,6 @@
 import supabase from "../config/supabaseClient.js";
 import CustomError from "../utils/CustomError.js";
-import uploadImageToGCS from "./storeImage.js";
+import { uploadImageToGCS, deleteImageFromGCS } from "./cloudStorageService.js";
 
 const createJournal = async (firebase_id, data) => {
   const { image, ...journalData } = data;
@@ -77,7 +77,9 @@ const updateJournal = async (journalId, data) => {
 };
 
 const deleteJournal = async (journalId) => {
-  await getJournalById(journalId);
+  const journal = await getJournalById(journalId);
+
+  await deleteImageFromGCS(journal.imageUrl);
 
   const { data, error } = await supabase
     .from("journals")

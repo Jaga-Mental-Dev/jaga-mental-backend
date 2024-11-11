@@ -7,6 +7,7 @@ const createJournal = async (req, res, next) => {
       image: req.file,
       ...req.body,
     };
+
     await journalService.createJournal(id, data);
 
     res.send({
