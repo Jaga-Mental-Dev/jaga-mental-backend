@@ -61,6 +61,20 @@ const getJournalById = async (journalId) => {
   return data;
 };
 
+const getJournalByDate = async (userId, date) => {
+  const { data, error } = await supabase
+    .from("journals")
+    .select("*")
+    .eq("user_id", userId)
+    .eq("created_at", date);
+
+  if (error || !data) {
+    throw new CustomError("Journal not found", 404);
+  }
+
+  return data;
+};
+
 const updateJournal = async (journalId, data) => {
   await getJournalById(journalId);
 
@@ -99,4 +113,5 @@ export {
   getJournalById,
   deleteJournal,
   updateJournal,
+  getJournalByDate,
 };

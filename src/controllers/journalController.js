@@ -54,6 +54,22 @@ const getJournalById = async (req, res, next) => {
   }
 };
 
+const getJournalByDate = async (req, res, next) => {
+  try {
+    const id = req.user.id;
+    const { date } = req.body;
+    const data = await journalService.getJournalByDate(id, date);
+
+    res.send({
+      error: false,
+      data,
+      message: "Journal retrieved successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const updateJournal = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -89,4 +105,5 @@ export {
   getJournalById,
   updateJournal,
   deleteJournal,
+  getJournalByDate,
 };
