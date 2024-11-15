@@ -16,13 +16,14 @@ const createJournal = async (firebase_id, data) => {
 
   const { data: insertedData, error } = await supabase
     .from("journals")
-    .insert({ user_id: firebase_id, ...journalData });
+    .insert({ user_id: firebase_id, ...journalData })
+    .select();
 
   if (error) {
     throw new CustomError(error.message, 500);
   }
 
-  return data;
+  return insertedData;
 };
 
 const getAllJournalByUserId = async (firebase_id, filters = {}) => {

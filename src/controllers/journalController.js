@@ -8,10 +8,11 @@ const createJournal = async (req, res, next) => {
       ...req.body,
     };
 
-    await journalService.createJournal(id, data);
+    const journalData = await journalService.createJournal(id, data);
 
     res.send({
       error: false,
+      data: journalData,
       message: "Journal created successfully",
     });
   } catch (error) {
