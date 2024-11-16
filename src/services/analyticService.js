@@ -1,14 +1,5 @@
 import supabase from "../config/supabaseClient.js";
 import CustomError from "../utils/CustomError.js";
-<<<<<<< HEAD
-
-const getEmotionCount = async (from, to, user_id) => {
-  const { data, error } = await supabase.rpc("get_emotion_count", {
-    from_date: from,
-    to_date: to,
-    specific_user_id: user_id,
-  });
-=======
 import { parseISO, getDay, startOfWeek, endOfWeek, format } from "date-fns";
 
 const getEmotionCount = async (user_id) => {
@@ -29,18 +20,11 @@ const getEmotionCount = async (user_id) => {
     .gte("created_at", startDate)
     .lte("created_at", endDate)
     .eq("user_id", user_id);
->>>>>>> dev
 
   if (error) {
     throw new CustomError(error.message, 500);
   }
 
-<<<<<<< HEAD
-  return data;
-};
-
-export { getEmotionCount };
-=======
   const transformedData = transformData(data);
 
   return transformedData;
@@ -71,4 +55,3 @@ const transformData = (data) => {
 };
 
 export { getEmotionCount, transformData };
->>>>>>> dev

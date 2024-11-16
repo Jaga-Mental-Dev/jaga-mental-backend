@@ -12,10 +12,6 @@ router.use("/user", authenticate, userRoute);
 router.use("/auth", authRoute);
 router.use("/oauth", authenticate, oauthRoute);
 router.use("/journal", authenticate, journalRoute);
-<<<<<<< HEAD
-router.use("/analytic", analyticRoute);
-=======
 router.use("/analytic", authenticate, analyticRoute);
->>>>>>> dev
 
 export default router;
