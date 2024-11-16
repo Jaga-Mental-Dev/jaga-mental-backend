@@ -5,4 +5,5 @@ const analyticRoute = express.Router();
 
 analyticRoute.get("/", getEmotionCount);
 
+
 export default analyticRoute;

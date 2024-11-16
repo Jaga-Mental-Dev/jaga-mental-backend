@@ -1,5 +1,6 @@
 import supabase from "../config/supabaseClient.js";
 import CustomError from "../utils/CustomError.js";
+
 import { parseISO, getDay, startOfWeek, endOfWeek, format } from "date-fns";
 
 const getEmotionCount = async (user_id) => {
@@ -24,7 +25,6 @@ const getEmotionCount = async (user_id) => {
   if (error) {
     throw new CustomError(error.message, 500);
   }
-
   const transformedData = transformData(data);
 
   return transformedData;
