@@ -6,8 +6,8 @@ COPY . .
 
 COPY .env .env
 
-RUN npm install
+RUN pnpm install
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start"]
+CMD ["pnpm", "run", "start"]

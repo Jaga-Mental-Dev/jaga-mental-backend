@@ -1,6 +1,7 @@
 import supabase from "../config/supabaseClient.js";
 import CustomError from "../utils/CustomError.js";
 import { uploadImageToGCS, deleteImageFromGCS } from "./cloudStorageService.js";
+import { startOfDay, endOfDay, formatISO } from "date-fns";
 
 const createJournal = async (firebase_id, data) => {
   const { image, ...journalData } = data;
@@ -63,11 +64,17 @@ const getJournalById = async (journalId) => {
 };
 
 const getJournalByDate = async (userId, date) => {
+  const inputDate = new Date(date);
+
+  const startOfDayISO = formatISO(startOfDay(inputDate));
+  const endOfDayISO = formatISO(endOfDay(inputDate));
+
   const { data, error } = await supabase
     .from("journals")
     .select("*")
     .eq("user_id", userId)
-    .eq("created_at", date);
+    .gte("created_at", startOfDayISO)
+    .lte("created_at", endOfDayISO);
 
   if (error || !data) {
     throw new CustomError("Journal not found", 404);

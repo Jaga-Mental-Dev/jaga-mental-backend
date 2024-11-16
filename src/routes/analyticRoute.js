@@ -3,6 +3,6 @@ import { getEmotionCount } from "../controllers/analyticController.js";
 
 const analyticRoute = express.Router();
 
-analyticRoute.post("/", getEmotionCount);
+analyticRoute.get("/", getEmotionCount);
 
 export default analyticRoute;
