@@ -1,16 +1,30 @@
 import supabase from "../config/supabaseClient.js";
 import CustomError from "../utils/CustomError.js";
+import { uploadImageToGCS, deleteImageFromGCS } from "./cloudStorageService.js";
+import { startOfDay, endOfDay, formatISO } from "date-fns";
 
 const createJournal = async (firebase_id, data) => {
+  const { image, ...journalData } = data;
+
+  if (image) {
+    try {
+      const imageUrl = await uploadImageToGCS(image, firebase_id);
+      journalData.imageUrl = imageUrl;
+    } catch (uploadError) {
+      throw new CustomError(uploadError.message, 500);
+    }
+  }
+
   const { data: insertedData, error } = await supabase
     .from("journals")
-    .insert({ user_id: firebase_id, ...data });
+    .insert({ user_id: firebase_id, ...journalData })
+    .select();
 
   if (error) {
     throw new CustomError(error.message, 500);
   }
 
-  return data;
+  return insertedData;
 };
 
 const getAllJournalByUserId = async (firebase_id, filters = {}) => {
@@ -49,6 +63,26 @@ const getJournalById = async (journalId) => {
   return data;
 };
 
+const getJournalByDate = async (userId, date) => {
+  const inputDate = new Date(date);
+
+  const startOfDayISO = formatISO(startOfDay(inputDate));
+  const endOfDayISO = formatISO(endOfDay(inputDate));
+
+  const { data, error } = await supabase
+    .from("journals")
+    .select("*")
+    .eq("user_id", userId)
+    .gte("created_at", startOfDayISO)
+    .lte("created_at", endOfDayISO);
+
+  if (error || !data) {
+    throw new CustomError("Journal not found", 404);
+  }
+
+  return data;
+};
+
 const updateJournal = async (journalId, data) => {
   await getJournalById(journalId);
 
@@ -65,7 +99,9 @@ const updateJournal = async (journalId, data) => {
 };
 
 const deleteJournal = async (journalId) => {
-  await getJournalById(journalId);
+  const journal = await getJournalById(journalId);
+
+  await deleteImageFromGCS(journal.imageUrl);
 
   const { data, error } = await supabase
     .from("journals")
@@ -85,4 +121,5 @@ export {
   getJournalById,
   deleteJournal,
   updateJournal,
+  getJournalByDate,
 };

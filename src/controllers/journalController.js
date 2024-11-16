@@ -3,10 +3,16 @@ import * as journalService from "../services/journalService.js";
 const createJournal = async (req, res, next) => {
   try {
     const id = req.user.id;
-    await journalService.createJournal(id, req.body);
+    const data = {
+      image: req.file,
+      ...req.body,
+    };
+
+    const journalData = await journalService.createJournal(id, data);
 
     res.send({
       error: false,
+      data: journalData,
       message: "Journal created successfully",
     });
   } catch (error) {
@@ -38,6 +44,22 @@ const getJournalById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const data = await journalService.getJournalById(id);
+
+    res.send({
+      error: false,
+      data,
+      message: "Journal retrieved successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getJournalByDate = async (req, res, next) => {
+  try {
+    const id = req.user.id;
+    const { date } = req.body;
+    const data = await journalService.getJournalByDate(id, date);
 
     res.send({
       error: false,
@@ -84,4 +106,5 @@ export {
   getJournalById,
   updateJournal,
   deleteJournal,
+  getJournalByDate,
 };
