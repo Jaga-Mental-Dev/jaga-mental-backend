@@ -44,9 +44,9 @@ export const updateUser = async (id, userData) => {
     .from("users")
     .update(userData)
     .eq("id", id);
+
   if (error) {
-    error.statusCode = 400;
-    throw error;
+    throw new CustomError(error.message, 500);
   }
 
   return data;

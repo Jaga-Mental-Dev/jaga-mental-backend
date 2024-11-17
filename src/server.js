@@ -13,6 +13,10 @@ app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
 
+app.get("/", (req, res) => {
+  res.json("Selamat datang di jaga mental API");
+});
+
 app.use("/api", router);
 
 app.use(errorHandler);
