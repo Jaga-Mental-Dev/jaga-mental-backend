@@ -14,8 +14,11 @@
 
    - Set up email and password authentication within Firebase to allow users to create accounts and log in directly with their credentials.
 
+4. **Emotion Detection Model**
+   - Integrate an API integration machine learning server to detect emotions from images or text data
+
 ### 🔄 In Progress / Pending
 
-4. **Emotion Detection Model**
+5. **Side Feature : Chatbot**
    - **Status:** Not yet implemented.
-   - **Next Steps:** Integrate a machine learning model to detect emotions from images or text data. Model selection and API integration are required.
+   - **Next Steps:** Integrate an API a machine learning server to implement chatbot. API integration are required.
