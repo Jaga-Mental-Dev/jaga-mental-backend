@@ -1,4 +1,5 @@
 import * as journalService from "../services/journalService.js";
+import { getEmotionByImage } from "../services/modelServices.js";
 
 const createJournal = async (req, res, next) => {
   try {
@@ -8,11 +9,14 @@ const createJournal = async (req, res, next) => {
       ...req.body,
     };
 
+    const emotion = await getEmotionByImage(image);
+
     const journalData = await journalService.createJournal(id, data);
 
     res.send({
       error: false,
       data: journalData,
+      emotion,
       message: "Journal created successfully",
     });
   } catch (error) {
@@ -75,10 +79,11 @@ const updateJournal = async (req, res, next) => {
   try {
     const { id } = req.params;
     const data = req.body;
-    await journalService.updateJournal(id, data);
+    const dataJournalUpdate = await journalService.updateJournal(id, data);
 
     res.send({
       error: false,
+      data: dataJournalUpdate,
       message: "Journal updated successfully",
     });
   } catch (error) {

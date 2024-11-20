@@ -2,6 +2,7 @@ import supabase from "../config/supabaseClient.js";
 import CustomError from "../utils/CustomError.js";
 import { uploadImageToGCS, deleteImageFromGCS } from "./cloudStorageService.js";
 import { startOfDay, endOfDay, formatISO } from "date-fns";
+import { getEmotionByImage, getEmotionByText } from "./modelServices.js";
 
 const createJournal = async (firebase_id, data) => {
   const { image, ...journalData } = data;
@@ -86,16 +87,19 @@ const getJournalByDate = async (userId, date) => {
 const updateJournal = async (journalId, data) => {
   await getJournalById(journalId);
 
-  const { error } = await supabase
+  const emotion = await getEmotionByText(data.content);
+
+  const { data: dataJournalUpdated, error } = await supabase
     .from("journals")
     .update(data)
-    .eq("id", journalId);
+    .eq("id", journalId)
+    .select();
 
   if (error) {
     throw new CustomError(error.message, 500);
   }
 
-  return data;
+  return dataJournalUpdated;
 };
 
 const deleteJournal = async (journalId) => {
