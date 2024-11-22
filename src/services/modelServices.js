@@ -50,4 +50,30 @@ const getEmotionByImage = async (imageFile) => {
   }
 };
 
-export { getEmotionByText, getEmotionByImage };
+const getFeedbackByTextAndEmotion = async (text, emotion) => {
+  try {
+    const form = new FormData();
+    form.append("text", text);
+    form.append("emotion", emotion);
+
+    // Mengirim request dengan axios
+    const response = await axios.post(
+      process.env.BASE_MODEL_URL + "/text/api/feedback",
+      form,
+      {
+        headers: {
+          ...form.getHeaders(),
+        },
+      }
+    );
+
+    const cleanedFeedback = response.data.feedback.replace(/\n/g, "");
+
+    return cleanedFeedback;
+  } catch (error) {
+    console.error("Error fetching emotion prediction:", error);
+    throw new CustomError(error.message, 500);
+  }
+};
+
+export { getEmotionByText, getEmotionByImage, getFeedbackByTextAndEmotion };

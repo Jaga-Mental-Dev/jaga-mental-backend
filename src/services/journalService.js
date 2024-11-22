@@ -2,7 +2,11 @@ import supabase from "../config/supabaseClient.js";
 import CustomError from "../utils/CustomError.js";
 import { uploadImageToGCS, deleteImageFromGCS } from "./cloudStorageService.js";
 import { startOfDay, endOfDay, formatISO } from "date-fns";
-import { getEmotionByImage, getEmotionByText } from "./modelServices.js";
+import {
+  getEmotionByImage,
+  getEmotionByText,
+  getFeedbackByTextAndEmotion,
+} from "./modelServices.js";
 
 const createJournal = async (firebase_id, data) => {
   const { image, ...journalData } = data;
@@ -89,9 +93,17 @@ const updateJournal = async (journalId, data) => {
 
   const emotion = await getEmotionByText(data.content);
 
+  const feedback = await getFeedbackByTextAndEmotion(data.content, emotion);
+
+  const updatedData = {
+    ...data,
+    emotion,
+    feedback,
+  };
+
   const { data: dataJournalUpdated, error } = await supabase
     .from("journals")
-    .update(data)
+    .update(updatedData)
     .eq("id", journalId)
     .select();
 
