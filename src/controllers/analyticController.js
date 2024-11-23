@@ -2,7 +2,7 @@ import * as analyticService from "../services/analyticService.js";
 
 const getEmotionCount = async (req, res, next) => {
   try {
-    const id = req.user.id;
+    const id = req.user.user_id;
     const data = await analyticService.getEmotionCount(id);
 
     res.send({

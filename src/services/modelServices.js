@@ -9,7 +9,7 @@ const getEmotionByText = async (text) => {
 
     // Mengirim request dengan axios
     const response = await axios.post(
-      process.env.BASE_MODEL_URL + "/text/api/emotion", // URL backend Python
+      process.env.BASE_MODEL_URL + "/text/api/emotion/", // URL backend Python
       form, // Form data sebagai body
       {
         headers: {
@@ -34,7 +34,7 @@ const getEmotionByImage = async (imageFile) => {
 
     // Kirim request ke model backend
     const response = await axios.post(
-      process.env.BASE_MODEL_URL + "/image/api/imageclassification", // Endpoint backend untuk gambar
+      process.env.BASE_MODEL_URL + "/image/api/imageclassification/", // Endpoint backend untuk gambar
       form,
       {
         headers: {
@@ -56,9 +56,8 @@ const getFeedbackByTextAndEmotion = async (text, emotion) => {
     form.append("text", text);
     form.append("emotion", emotion);
 
-    // Mengirim request dengan axios
     const response = await axios.post(
-      process.env.BASE_MODEL_URL + "/text/api/feedback",
+      process.env.BASE_MODEL_URL + "/text/api/feedback/",
       form,
       {
         headers: {

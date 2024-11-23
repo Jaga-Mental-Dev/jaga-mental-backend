@@ -3,7 +3,7 @@ import CustomError from "../utils/CustomError.js";
 import { addUser, getUserByEmail } from "./userServices.js";
 import { auth } from "../auth.js";
 
-export const registerUser = async (full_name, email, password) => {
+export const registerUser = async (id, full_name, email, password) => {
   // validate if user found
   const foundUser = await getUserByEmail(email);
 
@@ -16,6 +16,7 @@ export const registerUser = async (full_name, email, password) => {
   const hashedPassword = await bcrypt.hash(password, saltRounds);
 
   const newUser = {
+    firebase_id: id,
     full_name,
     email,
     password: hashedPassword,

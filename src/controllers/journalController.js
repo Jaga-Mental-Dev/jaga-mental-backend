@@ -3,13 +3,13 @@ import { getEmotionByImage } from "../services/modelServices.js";
 
 const createJournal = async (req, res, next) => {
   try {
-    const id = req.user.id;
+    const id = req.user.user_id;
     const data = {
       image: req.file,
       ...req.body,
     };
 
-    const emotion = await getEmotionByImage(image);
+    const emotion = await getEmotionByImage(data.image);
 
     const journalData = await journalService.createJournal(id, data);
 
@@ -26,7 +26,7 @@ const createJournal = async (req, res, next) => {
 
 const getAllJournalByUserId = async (req, res, next) => {
   try {
-    const id = req.user.id;
+    const id = req.user.user_id;
     const { emotion, title, content } = req.query;
     const data = await journalService.getAllJournalByUserId(id, {
       emotion,
@@ -61,7 +61,7 @@ const getJournalById = async (req, res, next) => {
 
 const getJournalByDate = async (req, res, next) => {
   try {
-    const id = req.user.id;
+    const id = req.user.user_id;
     const { date } = req.body;
     const data = await journalService.getJournalByDate(id, date);
 

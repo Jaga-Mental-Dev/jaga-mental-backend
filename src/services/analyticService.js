@@ -30,7 +30,7 @@ const getEmotionCount = async (user_id) => {
 };
 
 const transformData = (data) => {
-  const defaultEmotions = ["neutral", "happy", "angry", "sad"];
+  const defaultEmotions = ["netral", "senang", "marah", "sedih"];
 
   const result = defaultEmotions.reduce((acc, emotion) => {
     acc[emotion] = Array(7).fill(0);
