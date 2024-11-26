@@ -15,8 +15,7 @@ const createJournal = async (req, res, next) => {
 
     res.send({
       error: false,
-      data: journalData,
-      emotion,
+      data: { ...journalData[0], initialEmotion: emotion },
       message: "Journal created successfully",
     });
   } catch (error) {
