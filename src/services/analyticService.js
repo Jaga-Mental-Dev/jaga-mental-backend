@@ -43,6 +43,7 @@ const transformData = (data) => {
     const date = parseISO(created_at);
     const dayIndex = getDay(date);
 
+    // Adjust for Monday as the first day of the week (0 is Sunday)
     const adjustedDayIndex = dayIndex === 0 ? 6 : dayIndex - 1;
 
     if (result[emotion]) {
@@ -50,7 +51,11 @@ const transformData = (data) => {
     }
   });
 
-  return result;
+  // Transform result object into an array of objects
+  return defaultEmotions.map((emotion) => ({
+    emotion,
+    values: result[emotion],
+  }));
 };
 
 export { getEmotionCount, transformData };
