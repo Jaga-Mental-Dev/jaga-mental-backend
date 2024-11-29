@@ -3,6 +3,7 @@
 ## Table of Contents
 - [Introduction](#introduction)
 - [Prerequisites](#prerequisites)
+- [Service Architecture](#service-architecture)
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Running the Application](#running-the-application)
@@ -13,6 +14,11 @@
 
 ## Introduction
 Mental health issues among Gen Z in Indonesia have been on the rise, with limited access to services tailored to their needs. Our team identified this gap and developed an innovative solution combining machine learning, mobile development, and cloud computing to empower users in managing their mental health. By leveraging technology, we aim to help users independently understand their mood patterns and improve their overall well-being.
+
+## Service Architecture
+<div style ="display:flex;" align="center">
+  <img src="https://drive.google.com/uc?id=1TI9onoufjpkp0XhMgeH7n-M-Qqskun_d" style="width:500px"/>
+</div>
 
 ## Prerequisites
 Ensure you have the following installed on your system:
