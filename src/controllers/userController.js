@@ -91,7 +91,6 @@ export const getCurrentUser = async (req, res) => {
       message: "User retrieved successfully",
     });
   } catch (err) {
-    console.error(err);
-    throw err;
+    next(err);
   }
 };

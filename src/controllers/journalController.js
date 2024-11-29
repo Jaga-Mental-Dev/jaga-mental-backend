@@ -82,7 +82,7 @@ const updateJournal = async (req, res, next) => {
 
     res.send({
       error: false,
-      data: dataJournalUpdate,
+      data: dataJournalUpdate[0],
       message: "Journal updated successfully",
     });
   } catch (error) {
