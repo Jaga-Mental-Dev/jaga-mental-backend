@@ -1,4 +1,4 @@
-# Jaga Mental Backend
+# Jaga Mental - Backend
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -8,25 +8,26 @@
 - [Configuration](#configuration)
 - [Running the Application](#running-the-application)
 - [Folder Structure](#folder-structure)
+- [Contributing](#contributing)
 - [License](#license)
 
 ---
 
-## Introduction
+## Introduction📚
 Mental health issues among Gen Z in Indonesia have been on the rise, with limited access to services tailored to their needs. Our team identified this gap and developed an innovative solution combining machine learning, mobile development, and cloud computing to empower users in managing their mental health. By leveraging technology, we aim to help users independently understand their mood patterns and improve their overall well-being.
 
-## Service Architecture
+## Service Architecture🏛
 <div style ="display:flex;" align="center">
   <img src="https://drive.google.com/uc?id=1TI9onoufjpkp0XhMgeH7n-M-Qqskun_d" style="width:500px"/>
 </div>
 
-## Prerequisites
+## Prerequisites📋
 Ensure you have the following installed on your system:
 - [Node.js](https://nodejs.org/) (v22.9 or higher)
 - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 - [Git](https://git-scm.com/)
 
-## Installation
+## Installation💾
 
 ### 1. Clone the Repository
 ```bash
@@ -44,7 +45,7 @@ or if you're using yarn
 ```bash
 yarn install
 ```
-## Configuration
+## Configuration⚙
 
 ### 1. Create Firebase Key
 
@@ -89,7 +90,7 @@ BUCKET_NAME=your-bucket-name
 BASE_MODEL_URL=your-base-model-url
 ```
 
-## Running The Application
+## Running The Application🚀
 
 ### Development Mode
 
@@ -107,7 +108,7 @@ To start app in production mode :
 npm start
 ```
 
-## Folder Structure
+## Folder Structure📁
 
 ```bash
 jaga-mental-backend/
@@ -127,31 +128,9 @@ jaga-mental-backend/
 └── Dockerfile               # Docker configuration
 ```
 
-## License
+## Contributing🤝
+Contributions are welcome! Please feel free to submit a pull request or open an issue for suggestions and improvements.
 
-This project is license under the MIT License.
-
-```text
-MIT License
-
-Copyright (c) 2024 Al Farizi Dwi Prasetyo
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
+## License📜
+Proyek ini menggunakan lisensi MIT. Silakan lihat [LICENSE](./LICENSE) untuk informasi lebih lanjut.
 
