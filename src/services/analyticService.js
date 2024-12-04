@@ -8,11 +8,11 @@ const getEmotionCount = async (user_id) => {
   }
 
   const now = new Date();
-  const startOfMonday = startOfWeek(now, { weekStartsOn: 1 });
-  const endOfSunday = endOfWeek(now, { weekStartsOn: 1 });
+  const startOfSunday = startOfWeek(now, { weekStartsOn: 0 });
+  const endOfSaturday = endOfWeek(now, { weekStartsOn: 0 });
 
-  const startDate = format(startOfMonday, "yyyy-MM-dd'T'00:00:00'Z'");
-  const endDate = format(endOfSunday, "yyyy-MM-dd'T'23:59:59'Z'");
+  const startDate = format(startOfSunday, "yyyy-MM-dd'T'00:00:00'Z'");
+  const endDate = format(endOfSaturday, "yyyy-MM-dd'T'23:59:59'Z'");
 
   const { data, error } = await supabase
     .from("journals")
@@ -43,8 +43,7 @@ const transformData = (data) => {
     const date = parseISO(created_at);
     const dayIndex = getDay(date);
 
-    // Adjust for Monday as the first day of the week (0 is Sunday)
-    const adjustedDayIndex = dayIndex === 0 ? 6 : dayIndex - 1;
+    const adjustedDayIndex = dayIndex === 0 ? 0 : dayIndex;
 
     if (result[emotion]) {
       result[emotion][adjustedDayIndex]++;
