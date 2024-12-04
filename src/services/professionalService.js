@@ -10,42 +10,48 @@ export function getProfessionalList() {
   const professionals = [
     {
       name: "Dr. Andi Wijaya",
-      avatar: "https://i.pravatar.cc/300?img=18",
+      avatar:
+        "https://storage.googleapis.com/jaga-mental-photo-bucket/professional/18.jpeg",
       city: faker.location.city(),
       specialist: "Psikolog",
       phone: generateIndonesianPhoneNumber(),
     },
     {
       name: "Dra. Siti Rahmawati",
-      avatar: "https://i.pravatar.cc/300?img=24",
+      avatar:
+        "https://storage.googleapis.com/jaga-mental-photo-bucket/professional/24.jpeg",
       city: faker.location.city(),
       specialist: "Psikiater",
       phone: generateIndonesianPhoneNumber(),
     },
     {
       name: "Budi Santoso, M.Psi",
-      avatar: "https://i.pravatar.cc/300?img=33",
+      avatar:
+        "https://storage.googleapis.com/jaga-mental-photo-bucket/professional/33.jpeg",
       city: faker.location.city(),
       specialist: "Konselor Kesehatan Mental",
       phone: generateIndonesianPhoneNumber(),
     },
     {
       name: "Ika Purnama, M.Si",
-      avatar: "https://i.pravatar.cc/300?img=35",
+      avatar:
+        "https://storage.googleapis.com/jaga-mental-photo-bucket/professional/35.jpeg",
       city: faker.location.city(),
       specialist: "Terapis Perilaku",
       phone: generateIndonesianPhoneNumber(),
     },
     {
       name: "Joko Pratama",
-      avatar: "https://i.pravatar.cc/300?img=51",
+      avatar:
+        "https://storage.googleapis.com/jaga-mental-photo-bucket/professional/51.jpeg",
       city: faker.location.city(),
       specialist: "Pekerja Sosial Klinis",
       phone: generateIndonesianPhoneNumber(),
     },
     {
       name: "Lina Putri",
-      avatar: "https://i.pravatar.cc/300?img=31",
+      avatar:
+        "https://storage.googleapis.com/jaga-mental-photo-bucket/professional/31.jpeg",
       city: faker.location.city(),
       specialist: "Psikolog Anak",
       phone: generateIndonesianPhoneNumber(),
