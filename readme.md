@@ -1,4 +1,5 @@
-# Jaga Mental - Backend
+# Jaga Mental - Backend 💻
+This repository contains the backend API for Jaga Mental, a mental health application designed to help Gen Z in Indonesia track their moods through journaling. The API is built using Express.js and integrates with several cloud services to provide a seamless and efficient user experience.
 
 ## Table of Contents
 - [Introduction](#introduction)
